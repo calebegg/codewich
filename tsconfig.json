@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "target": "es2015",
+    "outDir": "build/dev",
+    "module": "amd",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "lib": [
+      "dom",
+      "es5",
+      "es2015"
+    ]
+  }
+}

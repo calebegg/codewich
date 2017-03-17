@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# Copyright 2017 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+set -e
+
+TAG=`date "+%Y%m%d%H%M%S"`
+
+echo "-*[})] CodeWich build $TAG"
+
+echo "Transpiling with typecript...."
+./node_modules/.bin/tsc
+
+echo "Combining sources with r.js...."
+./node_modules/.bin/r.js -o \
+    baseDir=. \
+    paths.pako=node_modules/pako/dist/pako \
+    paths.vs=empty: \
+    paths.lodash=node_modules/lodash/lodash \
+    paths.loop-protect=node_modules/loop-protect/loop-protect \
+    paths.dialog-polyfill=node_modules/dialog-polyfill/dialog-polyfill \
+    name=build/dev/main \
+    out=build/bundle-max.js \
+    optimize=none
+
+echo "Uglfiying..."
+./node_modules/.bin/uglifyjs build/bundle-max.js > build/bundle.js
+
+echo "Deleting old builds...."
+rm -r build/out
+
+echo "Creating directory structure...."
+mkdir -p build/out/$TAG/{build,node_modules/{requirejs,dialog-polyfill,monaco-editor/min/vs}}
+
+echo "Interpolating index.html with Handlebars...."
+./node_modules/.bin/handlebars \
+    --TAG=$TAG \
+    --GA_ID="UA-315420-12" \
+    < src/index.html > build/out/index.html
+
+echo "Copying files to the tagged directory...."
+cp src/404.html build/out/
+cp build/bundle.js build/out/$TAG/build/
+cp src/*.css src/*.svg src/*.png build/out/$TAG/
+cp src/logo_480.png build/out/
+cp -R node_modules/monaco-editor/min/vs/ build/out/$TAG/node_modules/monaco-editor/min/vs/
+cp node_modules/dialog-polyfill/dialog-polyfill.css build/out/$TAG/node_modules/dialog-polyfill/
+
+echo "Done in $SECONDS seconds"
