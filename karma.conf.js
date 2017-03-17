@@ -18,7 +18,7 @@
 module.exports = function(config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', 'requirejs'],
+    frameworks: ['jasmine', 'requirejs', 'es6-shim'],
     files: [
       'karma_main.js',
       {pattern: 'build/dev/*.js', included: false},
