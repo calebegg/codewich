@@ -31,8 +31,9 @@
     "uglify-js-harmony": "^2.7.5"
   },
   "scripts": {
-    "test": "concurrently 'npm run karma-phantom' 'npm run tslint'",
+    "test": "concurrently 'npm run karma-phantom' 'npm run tslint' 'npm run tsc-check'",
     "karma-phantom": "tsc --target es5 ; karma start --single-run --browsers PhantomJS",
-    "tslint": "tslint --config=tslint.json src/**/*.ts"
+    "tslint": "tslint --config=tslint.json src/**/*.ts",
+    "tsc-check": "tsc --noEmit"
   }
 }

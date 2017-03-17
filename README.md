@@ -1,5 +1,9 @@
 # CodeWich
 
+[![Build Status]](https://travis-ci.org/calebegg/codewich)
+
+[Build Status]: https://travis-ci.org/calebegg/codewich.svg?branch=master
+
 CodeWich is a web app you can use to write small, self-contained snippets of
 TypeScript/JavaScript, CSS, and HTML, and to preview a simple page that combines
 them. The preview updates live as you type. It's similar to JSFiddle, JSBin,
