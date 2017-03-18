@@ -20,7 +20,7 @@ This is not an official Google product.
     URL. This has a few benefits:
      *  Your code never leaves your machine unless you decide to share your URL.
         Since the snippet is stored in the URL fragment (the part after the
-        `#`), the CodeWich webserver doesn't even log your code snippets.
+        `#`), the CodeWich web server doesn't even log your code snippets.
      *  You don't have to rely on CodeWich's availability. You can download your
         own copy and run it locally, or host it somewhere you control, and
         you'll always be able to decode your CodeWich URLs to get the original
