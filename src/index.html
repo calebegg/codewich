@@ -67,10 +67,10 @@ limitations under the License.
       vs: 'node_modules/monaco-editor/min/vs',
       lodash: 'node_modules/lodash/lodash',
       'loop-protect': 'node_modules/loop-protect/loop-protect',
-      'build/dev/main': 'build/bundle',
+      'build/out/main': 'build/bundle',
     }
   });
-  require(['build/dev/main'], main => run());
+  require(['build/out/main'], main => run());
 </script>
 <link rel="stylesheet" href="/{{TAG}}/node_modules/dialog-polyfill/dialog-polyfill.css" />
 <link rel="stylesheet" href="/{{TAG}}/style.css" />

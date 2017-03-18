@@ -16,7 +16,7 @@
  */
 
 var allTestFiles = []
-var TEST_REGEXP = /build\/dev.*_test\.js$/i
+var TEST_REGEXP = /build\/out.*_test\.js$/i
 
 Object.keys(window.__karma__.files).forEach(function (file) {
   if (TEST_REGEXP.test(file)) {

@@ -17,6 +17,7 @@
   "devDependencies": {
     "@types/jasmine": "^2.5.43",
     "concurrently": "^3.4.0",
+    "firebase-tools": "^3.5.0",
     "handlebars-cmd": "^0.1.4",
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
@@ -26,6 +27,7 @@
     "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-requirejs": "^1.1.0",
+    "live-server": "^1.2.0",
     "tslint": "^4.5.1",
     "typescript": "next",
     "uglify-js-harmony": "^2.7.5"

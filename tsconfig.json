@@ -3,7 +3,7 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "target": "es2015",
-    "outDir": "build/dev",
+    "outDir": "build/out",
     "module": "amd",
     "moduleResolution": "node",
     "skipLibCheck": true,

@@ -33,21 +33,34 @@ This is not an official Google product.
     autocompletion, and TypeScript transpilation).
  *  [Loop Protect] from [JSBin] to prevent accidental infinite for/while loops
     from breaking your tab.
+ *  [Firebase] for static hosting
 
 [Pako]: https://github.com/nodeca/pako
 [Monaco Editor]: https://github.com/Microsoft/monaco-editor
 [Loop Protect]: https://github.com/jsbin/loop-protect
-[JSBin]: http://jsbin.com/
+[JSBin]: https://jsbin.com/
+[Firebase]: https://firebase.google.com/docs/hosting/
 
 ## Development
 
-    yarn install
+### Setup
 
-### Building
+ *  [Install yarn]
+ *  `yarn install`
 
-    ./build.sh
+ [Install yarn]: https://yarnpkg.com/lang/en/docs/install/
+
+### Running locally
+
+    ./build.sh dev
+    ./node_modules/.bin/live-server build/dev
 
 ### Testing
 
-    tsc --watch
+    tsc --watch &
     ./test.sh
+
+### Deploying
+
+    ./build.sh prod
+    ./node_modules/.bin/firebase deploy

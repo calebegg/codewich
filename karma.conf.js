@@ -21,7 +21,7 @@ module.exports = function(config) {
     frameworks: ['jasmine', 'requirejs', 'es6-shim'],
     files: [
       'karma_main.js',
-      {pattern: 'build/dev/*.js', included: false},
+      {pattern: 'build/out/*.js', included: false},
       {pattern: 'node_modules/**/*.js', included: false},
       {pattern: 'node_modules/**/*.css', included: false}
     ],

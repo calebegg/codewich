@@ -48,7 +48,7 @@ echo "Combining sources with r.js...."
     paths.lodash=node_modules/lodash/lodash \
     paths.loop-protect=node_modules/loop-protect/loop-protect \
     paths.dialog-polyfill=node_modules/dialog-polyfill/dialog-polyfill \
-    name=build/dev/main \
+    name=build/out/main \
     out=build/bundle-max.js \
     optimize=none
 
