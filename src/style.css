@@ -119,7 +119,9 @@ nav > button:hover, nav > button:focus { color: #555; }
 [data-scheme="hc-black"] nav > button:focus { color: #ccc; }
 
 nav > button > .tooltip,
-nav > a:link > .tooltip {
+nav > a:link > .tooltip,
+nav > a:visited > .tooltip,
+nav > a:active > .tooltip {
   visibility: hidden;
   position: absolute;
   text-decoration: none;
