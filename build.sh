@@ -17,8 +17,25 @@
 set -e
 
 TAG=`date "+%Y%m%d%H%M%S"`
+ENV=$1
 
-echo "-*[})] CodeWich build $TAG"
+case $ENV in
+  prod)
+    ANALYTICS_ID="UA-315420-12"
+    ;;
+  dev)
+    ANALYTICS_ID="UA-315420-12"
+    ;;
+  standalone)
+    ANALYTICS_ID=""
+    ;;
+  *)
+    echo "Unexpected env \"$ENV\". Must specify one of: prod, dev, standalone."
+    exit 1
+    ;;
+esac
+
+echo "-*[})] CodeWich $ENV build $TAG"
 
 echo "Transpiling with typecript...."
 ./node_modules/.bin/tsc
@@ -38,24 +55,24 @@ echo "Combining sources with r.js...."
 echo "Uglfiying..."
 ./node_modules/.bin/uglifyjs build/bundle-max.js > build/bundle.js
 
-echo "Deleting old builds...."
-rm -r build/out
+echo "Deleting old $ENV builds...."
+rm -r build/$ENV || true
 
 echo "Creating directory structure...."
-mkdir -p build/out/$TAG/{build,node_modules/{requirejs,dialog-polyfill,monaco-editor/min/vs}}
+mkdir -p build/$ENV/$TAG/{build,node_modules/{requirejs,dialog-polyfill,monaco-editor/min/vs}}
 
 echo "Interpolating index.html with Handlebars...."
 ./node_modules/.bin/handlebars \
     --TAG=$TAG \
-    --GA_ID="UA-315420-12" \
-    < src/index.html > build/out/index.html
+    --GA_ID=$ANALYTICS_ID \
+    < src/index.html > build/$ENV/index.html
 
 echo "Copying files to the tagged directory...."
-cp src/404.html build/out/
-cp build/bundle.js build/out/$TAG/build/
-cp src/*.css src/*.svg src/*.png build/out/$TAG/
-cp src/logo_480.png build/out/
-cp -R node_modules/monaco-editor/min/vs/ build/out/$TAG/node_modules/monaco-editor/min/vs/
-cp node_modules/dialog-polyfill/dialog-polyfill.css build/out/$TAG/node_modules/dialog-polyfill/
+cp src/404.html build/$ENV/
+cp build/bundle.js build/$ENV/$TAG/build/
+cp src/*.css src/*.svg src/*.png build/$ENV/$TAG/
+cp src/logo_480.png build/$ENV/
+cp -R node_modules/monaco-editor/min/vs/ build/$ENV/$TAG/node_modules/monaco-editor/min/vs/
+cp node_modules/dialog-polyfill/dialog-polyfill.css build/$ENV/$TAG/node_modules/dialog-polyfill/
 
 echo "Done in $SECONDS seconds"
