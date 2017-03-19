@@ -21,10 +21,12 @@ This is not an official Google product.
      *  Your code never leaves your machine unless you decide to share your URL.
         Since the snippet is stored in the URL fragment (the part after the
         `#`), the CodeWich web server doesn't even log your code snippets.
-     *  You don't have to rely on CodeWich's availability. You can download your
-        own copy and run it locally, or host it somewhere you control, and
+     *  You don't have to rely on CodeWich's availability. You can [download
+        your own copy] and run it locally, or host it somewhere you control, and
         you'll always be able to decode your CodeWich URLs to get the original
         code.
+
+[download your own copy]: https://github.com/calebegg/codewich/releases/latest
 
 ## CodeWich uses
 
