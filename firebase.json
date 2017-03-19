@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build/prod",
+    "public": "build/deploy",
     "headers": [{
       "source" : "**/*.@(js|css|svg)",
       "headers" : [{

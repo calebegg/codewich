@@ -35,6 +35,12 @@ limitations under the License.
 <meta property="og:image" content="https://codewich.com/opengraph.png" />
 <meta property="og:description" content="Create and share simple web demos using TypeScript, CSS, and HTML. Prototype new ideas quickly." />
 
+<script>
+  // Fallback fake ga object in case Analytics is blocked or not included.
+  function ga() {
+    console.info('Analytics not loaded.');
+  }
+</script>
 {{#if GA_ID}}
   <!-- Google Analytics -->
   <script>
