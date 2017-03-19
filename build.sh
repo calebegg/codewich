@@ -71,7 +71,7 @@ echo "Copying files to the tagged directory...."
 cp src/404.html build/$ENV/
 cp build/bundle.js build/$ENV/$TAG/build/
 cp src/*.css src/*.svg src/*.png build/$ENV/$TAG/
-cp src/logo_400.png build/$ENV/
+cp src/opengraph.png build/$ENV/
 cp -R node_modules/monaco-editor/min/vs/ build/$ENV/$TAG/node_modules/monaco-editor/min/vs/
 cp node_modules/dialog-polyfill/dialog-polyfill.css build/$ENV/$TAG/node_modules/dialog-polyfill/
 
