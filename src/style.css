@@ -241,3 +241,11 @@ dialog section {
   padding: 16px;
   border-radius: 4px;
 }
+
+#crash-message {
+  margin: 30px;
+  border: solid red 1px;
+  padding: 8px;
+  background: #fdc;
+  line-height: 1.5;
+}

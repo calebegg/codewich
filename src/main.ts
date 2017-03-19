@@ -227,6 +227,13 @@ export function run() {
   }
   global['newWich'] = newWich;
 
+  function turnOnAutoRun() {
+    deps.localStorage.setItem('maybeCrashed', 'false');
+    crashMessage.style.display = 'none';
+    updateOutputNow();
+  }
+  global['turnOnAutoRun'] = turnOnAutoRun;
+
   // Chrome's scroll-to-go-back is super buggy with Monaco. Disable it.
   // editor.getDomNode().addEventListener('wheel', e => { e.preventDefault();
   // });
@@ -303,10 +310,15 @@ export function run() {
   const outputFrame = document.createElement('iframe');
   const outputText = document.querySelector('#output > pre') as HTMLElement;
   const outputContainer = document.getElementById('output')!;
+  const crashMessage = document.getElementById('crash-message')!;
   outputContainer.appendChild(outputFrame);
 
   async function updateOutputNow() {
     if (viewType == ViewType.EDITOR_ONLY) return;
+    if (deps.localStorage.getItem('maybeCrashed') == 'true') {
+      crashMessage.style.display = 'block';
+      return;
+    }
     let transpiledScript = '';
     if (models.script.model.getValue() != '') {
       const worker = await monaco.languages.typescript.getTypeScriptWorker();
@@ -343,6 +355,15 @@ export function run() {
           (outputFrame.contentWindow as WindowExports)['runnerWindow'] =
               loopProtect;
         }, 0);
+        if (models.script.model.getValue()) {
+          deps.localStorage.setItem('maybeCrashed', 'true');
+          outputFrame.addEventListener('load', () => {
+            // Experimentally confirmed that 'load' is fired *after* script
+            // execution. Doesn't handle an infinite loop in a timeout or event,
+            // of course.
+            deps.localStorage.setItem('maybeCrashed', 'false');
+          });
+        }
         break;
       case ViewType.ES5:
       case ViewType.ESNEXT:
