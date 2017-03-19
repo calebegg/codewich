@@ -37,7 +37,7 @@ $maybe_dry ./node_modules/.bin/firebase deploy -P qa
 echo "Deployed to QA. Maybe do manual testing? ^C to stop, enter to deploy to prod."
 read
 
-$maybe_dry rm -r build/deploy
+$maybe_dry rm -r build/deploy || true
 $maybe_dry mkdir -p build/deploy
 $maybe_dry ./build.sh prod
 $maybe_dry cp -r build/prod/* build/deploy
@@ -47,6 +47,6 @@ echo "Deployed to Prod. Create a new standalone build? ^C to stop, enter to cont
 read
 
 $maybe_dry ./build.sh standalone
-$maybe_dry rm build/codewich.zip
+$maybe_dry rm build/codewich.zip || true
 $maybe_dry zip -r build/codewich.zip build/standalone
 $maybe_dry node release.js

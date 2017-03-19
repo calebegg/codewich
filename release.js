@@ -51,7 +51,7 @@ async function main() {
     name: 'codewich.zip',
   });
 
-  console.log(`Release created successfully! ${newRelease.html_url}`);
+  console.log(`Draft release created successfully! ${newRelease.html_url}`);
   console.log('Add some release notes and publish.');
 }
 
