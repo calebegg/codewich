@@ -51,9 +51,10 @@ limitations under the License.
       ga('send', 'exception',
           {exDescription: message + '\n' + source + ':  ' + lineno + ',' + colno,
           exFatal: true});
-      console.error(message, source, lineno, colno, error)
     } catch(e) {
       console.error(e);
+    } finally {
+      console.error(message, source, lineno, colno, error)
     }
   };
   </script>
