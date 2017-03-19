@@ -329,10 +329,7 @@ export function run() {
       case ViewType.OUTPUT:
       case ViewType.OUTPUT_ONLY:
         const scriptUrl = URL.createObjectURL(new Blob([transpiledScript]));
-        const frameWindow = outputFrame.contentWindow;
-        frameWindow.document.open();
-        (frameWindow as WindowExports)['runnerWindow'] = loopProtect;
-        frameWindow.document.write(`
+        (outputFrame as any).srcdoc = `
           <!doctype html>
           <title>Output</title>
           <style>
@@ -341,8 +338,11 @@ export function run() {
           <body>
             ${models.html.model.getValue()}
             <script src="${scriptUrl}"></script>
-          </body>`);
-        frameWindow.document.close();
+          </body>`;
+        setTimeout(() => {
+          (outputFrame.contentWindow as WindowExports)['runnerWindow'] =
+              loopProtect;
+        }, 0);
         break;
       case ViewType.ES5:
       case ViewType.ESNEXT:
