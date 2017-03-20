@@ -17,10 +17,95 @@
 
 /// <reference path="../node_modules/@types/jasmine/index.d.ts" />
 
-import {compilerOptionsForViewType} from './main';
+import {compilerOptionsForViewType, run} from './main';
 import {StrictLevel, ViewType} from './model';
 
+type JasmineSpyObj = {
+  [k: string]: jasmine.Spy
+};
+
 describe('main', () => {
+  describe('run', () => {
+    let fakeEditor: JasmineSpyObj;
+    let fakeDocument: JasmineSpyObj;
+    let fakeLocalStorage: JasmineSpyObj;
+    let fakeGa: jasmine.Spy;
+    let fakeMonaco;
+    let fakeGlobal: {[k: string]: any} = {};
+
+    beforeEach(() => {
+      fakeEditor = jasmine.createSpyObj('editor', [
+        'saveViewState',
+        'getDomNode',
+        'layout',
+        'setModel',
+        'restoreViewState',
+        'focus',
+        'onDidChangeModelContent',
+      ]);
+      fakeEditor.getDomNode.and.returnValue(document.createElement('div'));
+      fakeDocument = jasmine.createSpyObj(
+          'document', ['querySelector', 'querySelectorAll', 'createElement']);
+      fakeDocument.querySelectorAll.and.returnValue([]);
+      fakeMonaco = jasmine.createSpyObj('monaco', ['editor']);
+      fakeMonaco = {
+        editor: jasmine.createSpyObj('editor', ['create', 'createModel']),
+        Uri: jasmine.createSpyObj('Uri', ['file']),
+        languages: {
+          typescript: {
+            typescriptDefaults: jasmine.createSpyObj(
+                'typescriptDefaults', ['setCompilerOptions'])
+          }
+        }
+      };
+      fakeMonaco.editor.createModel.and.callFake(
+          (_: string, language: string) => {
+            let fakeModel =
+                jasmine.createSpyObj('model', ['getValue', 'setValue']);
+            fakeModel.getValue.and.returnValue(`fake ${language} source`);
+            return fakeModel;
+          });
+      fakeLocalStorage = jasmine.createSpyObj(
+          'localStorage', ['getItem', 'setItem', 'removeItem']);
+      fakeGa = jasmine.createSpy('ga');
+      run({
+        localStorage: fakeLocalStorage as any,
+        ga: fakeGa as any,
+        document: fakeDocument as any,
+        registerDialog: jasmine.createSpy('registerDialog'),
+        body: document.createElement('body'),
+        editor: fakeEditor as any,
+        getById: jasmine.createSpy('getById').and.callFake(
+            () => document.createElement('div')),
+        global: fakeGlobal as any,
+        monaco: fakeMonaco as any,
+      });
+    });
+
+    it('initializes', () => {});
+
+    describe('saveLocalWichSettings', () => {
+      it('saves settings', () => {
+        fakeGlobal['saveLocalWichSettings'](true);
+        expect(fakeGa).toHaveBeenCalled();
+        expect(fakeLocalStorage.setItem)
+            .toHaveBeenCalledWith('starter-template', JSON.stringify({
+              viewType: 0,
+              strictLevel: 0,
+              scriptSource: 'fake typescript source',
+              cssSource: 'fake css source',
+              htmlSource: 'fake html source'
+            }));
+      });
+
+      it('resets settings', () => {
+        fakeGlobal['saveLocalWichSettings'](false);
+        expect(fakeLocalStorage.removeItem)
+            .toHaveBeenCalledWith('starter-template');
+      });
+    });
+  });
+
   describe('compilerOptionsForViewType', () => {
     it('varies strictness', () => {
       expect(compilerOptionsForViewType(ViewType.OUTPUT, StrictLevel.STRICT)

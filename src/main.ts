@@ -95,25 +95,25 @@ export function compilerOptionsForViewType(type: ViewType, level: StrictLevel) {
   }
 }
 
-function getDeps() {
-  return {
-    localStorage,
-    ga,
-    body: document.body,
-    editor: null as any as monaco.editor.IStandaloneCodeEditor,
-  };
-}
-
-export function run() {
-  const deps = getDeps();
+export function run(deps = {
+  localStorage,
+  ga,
+  registerDialog,
+  document,
+  global,
+  monaco,
+  body: document.body,
+  editor: monaco.editor.create(
+      document.getElementById('monaco-container')!, {lineNumbersMinChars: 4}),
+  getById(id: string) {
+    return document.getElementById(id);
+  }
+}) {
   deps.body.style.display = 'block';
   deps.ga('create', 'UA-315420-12', 'auto');
 
-  deps.editor = monaco.editor.create(
-      document.getElementById('monaco-container')!, {lineNumbersMinChars: 4});
-
-  registerDialog(document.getElementById('settings'));
-  registerDialog(document.getElementById('share'));
+  deps.registerDialog(deps.getById('settings'));
+  deps.registerDialog(deps.getById('share'));
 
   function update(immediate = true) {
     deps.body.dataset['viewType'] = viewType.toString();
@@ -122,7 +122,7 @@ export function run() {
     deps.editor.layout();
     deps.editor.getDomNode().style.display = 'block';
 
-    monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
+    deps.monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
         compilerOptionsForViewType(viewType, strictLevel));
 
     let oldModel = models.script.model;
@@ -130,11 +130,11 @@ export function run() {
       case StrictLevel.STRICT:
       case StrictLevel.LOOSE:
         models.script.model = tsModel;
-        document.getElementById('ts-tab')!.textContent = 'ts';
+        deps.getById('ts-tab')!.textContent = 'ts';
         break;
       case StrictLevel.NONE:
         models.script.model = jsModel;
-        document.getElementById('ts-tab')!.textContent = 'js';
+        deps.getById('ts-tab')!.textContent = 'js';
         break;
     }
     if (oldModel != models.script.model) {
@@ -156,12 +156,12 @@ export function run() {
   function onViewChange(newType = viewType) {
     viewType = Number(newType);
     if (viewType == ViewType.ESNEXT || viewType == ViewType.ES5) {
-      switchTab('script', document.getElementById('ts-tab')!);
+      switchTab('script', deps.getById('ts-tab')!);
     }
     deps.ga('send', 'event', 'settings', 'changeViewType', ViewType[viewType]);
     update();
   }
-  global['onViewChange'] = onViewChange;
+  deps.global['onViewChange'] = onViewChange;
 
   function onStrictChange(level = strictLevel) {
     strictLevel = Number(level);
@@ -170,23 +170,24 @@ export function run() {
         StrictLevel[strictLevel]);
     update();
   }
-  global['onStrictChange'] = onStrictChange;
+  deps.global['onStrictChange'] = onStrictChange;
 
   function showSettings() {
-    (document.getElementById('settings') as any).showModal();
+    (deps.getById('settings') as any).showModal();
   }
-  global['showSettings'] = showSettings;
+  deps.global['showSettings'] = showSettings;
 
   function share() {
-    (document.getElementById('share') as any).showModal();
+    (deps.getById('share') as any).showModal();
   }
-  global['share'] = share;
+  deps.global['share'] = share;
 
   let currentTab: 'css'|'html'|'script' = 'script';
   function switchTab(tab: typeof currentTab, tabElement: HTMLElement) {
     models[currentTab].state = deps.editor.saveViewState();
     currentTab = tab;
-    for (let elem of Array.from(document.querySelectorAll('#tabbar > li'))) {
+    for (let elem of Array.from(
+             deps.document.querySelectorAll('#tabbar > li'))) {
       elem.classList.remove('current');
     }
     tabElement.classList.add('current');
@@ -195,14 +196,14 @@ export function run() {
     deps.editor.restoreViewState(state);
     deps.editor.focus();
   }
-  global['switchTab'] = switchTab;
+  deps.global['switchTab'] = switchTab;
 
   function onChangeColorScheme(scheme: string) {
     deps.editor.updateOptions({theme: scheme});
-    document.body.dataset['scheme'] = scheme;
+    deps.document.body.dataset['scheme'] = scheme;
     deps.localStorage.setItem('monaco-theme', scheme);
   }
-  global['onChangeColorScheme'] = onChangeColorScheme;
+  deps.global['onChangeColorScheme'] = onChangeColorScheme;
 
   function saveLocalWichSettings(save: boolean) {
     if (save) {
@@ -219,20 +220,20 @@ export function run() {
       deps.localStorage.removeItem('starter-template');
     }
   }
-  global['saveLocalWichSettings'] = saveLocalWichSettings;
+  deps.global['saveLocalWichSettings'] = saveLocalWichSettings;
 
   function newWich() {
     deps.ga('send', 'event', 'action', 'newWich', 'fromSidebar');
     window.open(location.toString().split('#')[0]);
   }
-  global['newWich'] = newWich;
+  deps.global['newWich'] = newWich;
 
   function turnOnAutoRun() {
     deps.localStorage.setItem('maybeCrashed', 'false');
     crashMessage.style.display = 'none';
     updateOutputNow();
   }
-  global['turnOnAutoRun'] = turnOnAutoRun;
+  deps.global['turnOnAutoRun'] = turnOnAutoRun;
 
   // Chrome's scroll-to-go-back is super buggy with Monaco. Disable it.
   // editor.getDomNode().addEventListener('wheel', e => { e.preventDefault();
@@ -265,10 +266,10 @@ export function run() {
     models.script.model.setValue(scriptSource);
     models.css.model.setValue(cssSource);
     models.html.model.setValue(htmlSource);
-    (document.getElementById('view-type-select') as HTMLSelectElement).value =
+    (deps.getById('view-type-select') as HTMLSelectElement).value =
         viewType.toString();
-    (document.getElementById('strict-level-select') as HTMLSelectElement)
-        .value = strictLevel.toString();
+    (deps.getById('strict-level-select') as HTMLSelectElement).value =
+        strictLevel.toString();
     let startState = 'BLANK';
     if (location.hash.length > 1) startState = 'LOAD';
     if (starterTemplate) startState = 'TEMPLATE';
@@ -286,32 +287,32 @@ export function run() {
     update();
   }
 
-  const loopProtectModel =
-      monaco.editor.createModel('', 'typescript', monaco.Uri.file('main.ts'));
+  const loopProtectModel = deps.monaco.editor.createModel(
+      '', 'typescript', deps.monaco.Uri.file('main.ts'));
 
-  const jsModel = monaco.editor.createModel(
-      '', 'javascript', monaco.Uri.file('main_raw.js'));
-  const tsModel = monaco.editor.createModel(
-      '', 'typescript', monaco.Uri.file('main_raw.ts'));
+  const jsModel = deps.monaco.editor.createModel(
+      '', 'javascript', deps.monaco.Uri.file('main_raw.js'));
+  const tsModel = deps.monaco.editor.createModel(
+      '', 'typescript', deps.monaco.Uri.file('main_raw.ts'));
 
   const models = {
     script: {model: tsModel, state: deps.editor.saveViewState()},
     css: {
-      model: monaco.editor.createModel('', 'css', monaco.Uri.file('style.css')),
+      model: deps.monaco.editor.createModel(
+          '', 'css', deps.monaco.Uri.file('style.css')),
       state: deps.editor.saveViewState()
     },
     html: {
-      model:
-          monaco.editor.createModel('', 'html', monaco.Uri.file('index.html')),
+      model: deps.monaco.editor.createModel(
+          '', 'html', deps.monaco.Uri.file('index.html')),
       state: deps.editor.saveViewState()
     },
   };
 
-  const outputFrame = document.createElement('iframe');
-  const outputText = document.querySelector('#output > pre') as HTMLElement;
-  const outputContainer = document.getElementById('output')!;
-  const crashMessage = document.getElementById('crash-message')!;
-  outputContainer.appendChild(outputFrame);
+  const outputFrame = deps.getById('output-iframe') as HTMLIFrameElement;
+  const outputText =
+      deps.document.querySelector('#output > pre') as HTMLElement;
+  const crashMessage = deps.getById('crash-message')!;
 
   async function updateOutputNow() {
     if (viewType == ViewType.EDITOR_ONLY) return;
@@ -321,7 +322,8 @@ export function run() {
     }
     let transpiledScript = '';
     if (models.script.model.getValue() != '') {
-      const worker = await monaco.languages.typescript.getTypeScriptWorker();
+      const worker =
+          await deps.monaco.languages.typescript.getTypeScriptWorker();
       let client, o: ts.EmitOutput;
       if (viewType == ViewType.OUTPUT || viewType == ViewType.OUTPUT_ONLY) {
         // loopProtect the TS code *before* transpilation to keep sourcemaps
@@ -382,13 +384,12 @@ export function run() {
   }, 1000);
   window.addEventListener('resize', resizeHandler);
 
-  switchTab('script', document.getElementById('ts-tab')!);
+  switchTab('script', deps.getById('ts-tab')!);
 
   let theme = deps.localStorage.getItem('monaco-theme');
   if (theme) {
     onChangeColorScheme(theme);
-    (document.getElementById('theme-select') as HTMLSelectElement).value =
-        theme;
+    (deps.getById('theme-select') as HTMLSelectElement).value = theme;
   }
 
   deps.editor.onDidChangeModelContent(updateUrl);
@@ -413,9 +414,9 @@ export function run() {
     if (e.key == 's' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       clearTimeout(overlayTimeout);
-      document.getElementById('save-overlay')!.style.display = 'block';
+      deps.getById('save-overlay')!.style.display = 'block';
       overlayTimeout = setTimeout(() => {
-        document.getElementById('save-overlay')!.style.display = 'none';
+        deps.getById('save-overlay')!.style.display = 'none';
       }, 3000);
     }
   });
