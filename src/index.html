@@ -57,12 +57,6 @@ limitations under the License.
   </script>
 {{/if}}
 
-<script>
-  // Fallback fake ga object in case Analytics is blocked or not included.
-  function ga() {
-    console.info('Analytics not loaded.');
-  }
-</script>
 <script src="/{{TAG}}/node_modules/monaco-editor/min/vs/loader.js"></script>
 <script>
   require.config({

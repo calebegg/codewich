@@ -21,7 +21,7 @@ ENV=$1
 
 case $ENV in
   prod)
-    ANALYTICS_ID="UA-315420-12"
+    ANALYTICS_ID="UA-94054205-1"
     ;;
   dev)
     ANALYTICS_ID="UA-315420-12"

@@ -110,7 +110,6 @@ export function run(deps = {
   }
 }) {
   deps.body.style.display = 'block';
-  deps.ga('create', 'UA-315420-12', 'auto');
 
   deps.registerDialog(deps.getById('settings'));
   deps.registerDialog(deps.getById('share'));
