@@ -28,6 +28,8 @@ import * as ts from 'typescript';
 import {StrictLevel, ViewType} from './model';
 import {decodeUrlData, encodeUrlData} from './urls';
 
+document.body.style.display = 'block';
+
 const DEFAULT_COMPILER_OPTIONS:
     monaco.languages.typescript.CompilerOptions = Object.freeze({
   module: monaco.languages.typescript.ModuleKind.CommonJS,
@@ -109,8 +111,6 @@ export function run(deps = {
     return document.getElementById(id);
   }
 }) {
-  deps.body.style.display = 'block';
-
   deps.registerDialog(deps.getById('settings'));
   deps.registerDialog(deps.getById('share'));
 
