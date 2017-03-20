@@ -235,10 +235,6 @@ export function run(deps = {
   }
   deps.global['turnOnAutoRun'] = turnOnAutoRun;
 
-  // Chrome's scroll-to-go-back is super buggy with Monaco. Disable it.
-  // editor.getDomNode().addEventListener('wheel', e => { e.preventDefault();
-  // });
-
   function updateUrl() {
     history.replaceState(undefined, '', encodeUrlData({
                            viewType,
