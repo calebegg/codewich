@@ -342,6 +342,9 @@ export function run(deps = {
         (outputFrame as any).srcdoc = `
           <!doctype html>
           <title>Output</title>
+          <script>
+            window['runnerWindow'] = top['loopProtect'];
+          </script>
           <style>
             ${models.css.model.getValue()}
           </style>
@@ -349,10 +352,6 @@ export function run(deps = {
             ${models.html.model.getValue()}
             <script src="${scriptUrl}"></script>
           </body>`;
-        setTimeout(() => {
-          (outputFrame.contentWindow as WindowExports)['runnerWindow'] =
-              loopProtect;
-        }, 0);
         if (models.script.model.getValue()) {
           deps.localStorage.setItem('maybeCrashed', 'true');
           outputFrame.addEventListener('load', () => {
