@@ -2,17 +2,17 @@
 # yarn lockfile v1
 
 
-"@types/google.analytics@^0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@types/google.analytics/-/google.analytics-0.0.29.tgz#71ba2ece06be5e2649ce507de6c83f47bb218e64"
+"@types/google.analytics@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@types/google.analytics/-/google.analytics-0.0.31.tgz#7deb538740e268325f3892e33ec825335b8aede6"
 
 "@types/jasmine@^2.5.43":
   version "2.5.46"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.46.tgz#bb3047a3f40f60dee03f52c3e2d955cd3d5066c8"
 
-"@types/lodash@^4.14.52":
-  version "4.14.55"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.55.tgz#75d7d4eba020ee4103d4cbd0f2a3ef5db8f7534f"
+"@types/lodash@^4.14.58":
+  version "4.14.58"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.58.tgz#18d45863b6119c1ffffe935c1f51fe044c8c4102"
 
 "@types/pako@^1.0.0":
   version "1.0.0"
@@ -2438,9 +2438,9 @@ package-json@^3.0.0:
     registry-url "^3.0.3"
     semver "^5.1.0"
 
-pako@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.4.tgz#412cc97c3b7ff06dc6c2557fd4f03d06f5e708d4"
+pako@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.5.tgz#d2205dfe5b9da8af797e7c163db4d1f84e4600bc"
 
 parse-glob@^3.0.4:
   version "3.0.4"
@@ -3247,8 +3247,8 @@ typedarray@~0.0.5:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
 typescript@next:
-  version "2.3.0-dev.20170318"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.0-dev.20170318.tgz#23ee34280ddf23a4cef659fbafdf01d463a16e73"
+  version "2.3.0-dev.20170327"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.0-dev.20170327.tgz#1b8e456554bbd1b5caa96157571b8ac76bf0b698"
 
 uglify-js-harmony@^2.7.5:
   version "2.7.5"
