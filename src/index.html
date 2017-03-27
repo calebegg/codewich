@@ -45,6 +45,9 @@ limitations under the License.
   ga('create', '{{GA_ID}}', 'auto');
   window.onerror = function (message, source, lineno, colno, error) {
     try {
+      // Some browsers include fragment in source location for errors in
+      // index.html.
+      source = source.split('#')[0];
       ga('send', 'exception',
           {exDescription: message + '\n' + source + ':  ' + lineno + ',' + colno,
           exFatal: true});
