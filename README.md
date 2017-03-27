@@ -30,8 +30,6 @@ This is not an official Google product.
 
 ## Demos
 
-CodeWich Examples
-
  *  [Flocking] (canvas)
  *  [Card flip] (CSS)
  *  [99 bottles of beer] (text)
