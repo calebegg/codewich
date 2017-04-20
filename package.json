@@ -4,8 +4,8 @@
   "description": "Create and share simple web demos. Prototype new ideas quickly.",
   "license": "Apache-2.0",
   "dependencies": {
-    "@types/google.analytics": "^0.0.31",
-    "@types/lodash": "^4.14.58",
+    "@types/google.analytics": "^0.0.33",
+    "@types/lodash": "^4.14.62",
     "@types/pako": "^1.0.0",
     "dialog-polyfill": "^0.4.7",
     "lodash": "^4.17.4",
@@ -15,14 +15,14 @@
     "requirejs": "^2.3.2"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.5.43",
+    "@types/jasmine": "^2.5.47",
     "concurrently": "^3.4.0",
-    "firebase-tools": "^3.5.0",
+    "firebase-tools": "^3.6.1",
     "github": "^9.2.0",
     "handlebars-cmd": "^0.1.4",
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
-    "karma": "^1.5.0",
+    "karma": "^1.6.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-es6-shim": "^1.0.0",
     "karma-jasmine": "^1.1.0",
@@ -30,8 +30,8 @@
     "karma-requirejs": "^1.1.0",
     "live-server": "^1.2.0",
     "semver": "^5.3.0",
-    "tslint": "^4.5.1",
-    "typescript": "next",
+    "tslint": "^5.1.0",
+    "typescript": "rc",
     "uglify-js-harmony": "^2.7.5"
   },
   "scripts": {
