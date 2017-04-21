@@ -124,7 +124,7 @@ export function run(deps = {
     deps.monaco.languages.typescript.typescriptDefaults.setCompilerOptions(
         compilerOptionsForViewType(viewType, strictLevel));
 
-    let oldModel = models.script.model;
+    const oldModel = models.script.model;
     switch (strictLevel) {
       case StrictLevel.STRICT:
       case StrictLevel.LOOSE:
@@ -185,12 +185,12 @@ export function run(deps = {
   function switchTab(tab: typeof currentTab, tabElement: HTMLElement) {
     models[currentTab].state = deps.editor.saveViewState();
     currentTab = tab;
-    for (let elem of Array.from(
+    for (const elem of Array.from(
              deps.document.querySelectorAll('#tabbar > li'))) {
       elem.classList.remove('current');
     }
     tabElement.classList.add('current');
-    let {model, state} = models[currentTab];
+    const {model, state} = models[currentTab];
     deps.editor.setModel(model);
     deps.editor.restoreViewState(state);
     deps.editor.focus();
@@ -249,7 +249,7 @@ export function run(deps = {
 
   function decodeUrl() {
     const starterTemplate = deps.localStorage.getItem('starter-template');
-    let {
+    const {
       viewType: newViewType,
       strictLevel: newStrictLevel, scriptSource, cssSource, htmlSource
     } =
@@ -380,7 +380,7 @@ export function run(deps = {
 
   switchTab('script', deps.getById('ts-tab')!);
 
-  let theme = deps.localStorage.getItem('monaco-theme');
+  const theme = deps.localStorage.getItem('monaco-theme');
   if (theme) {
     onChangeColorScheme(theme);
     (deps.getById('theme-select') as HTMLSelectElement).value = theme;

@@ -31,7 +31,7 @@ describe('main', () => {
     let fakeLocalStorage: JasmineSpyObj;
     let fakeGa: jasmine.Spy;
     let fakeMonaco;
-    let fakeGlobal: {[k: string]: any} = {};
+    const fakeGlobal: {[k: string]: any} = {};
 
     beforeEach(() => {
       fakeEditor = jasmine.createSpyObj('editor', [
@@ -60,7 +60,7 @@ describe('main', () => {
       };
       fakeMonaco.editor.createModel.and.callFake(
           (_: string, language: string) => {
-            let fakeModel =
+            const fakeModel =
                 jasmine.createSpyObj('model', ['getValue', 'setValue']);
             fakeModel.getValue.and.returnValue(`fake ${language} source`);
             return fakeModel;
