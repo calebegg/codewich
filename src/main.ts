@@ -26,7 +26,9 @@ import {debounce, throttle} from 'lodash';
 import * as ts from 'typescript';
 
 import {StrictLevel, ViewType} from './model';
-import {decodeUrlData, encodeUrlData} from './urls';
+import {decodeUrlData} from './urls';
+
+declare const WORKER_PATH: string;
 
 document.body.style.display = 'block';
 
@@ -109,10 +111,15 @@ export function run(deps = {
       document.getElementById('monaco-container')!, {lineNumbersMinChars: 4}),
   getById(id: string) {
     return document.getElementById(id);
-  }
+  },
+  worker: new Worker(WORKER_PATH),
 }) {
   deps.registerDialog(deps.getById('settings'));
   deps.registerDialog(deps.getById('share'));
+
+  deps.worker.addEventListener('message', ({data}) => {
+    history.replaceState(undefined, '', data);
+  });
 
   function update(immediate = true) {
     deps.body.dataset['viewType'] = viewType.toString();
@@ -235,13 +242,13 @@ export function run(deps = {
   deps.global['turnOnAutoRun'] = turnOnAutoRun;
 
   function updateUrl() {
-    history.replaceState(undefined, '', encodeUrlData({
-                           viewType,
-                           strictLevel,
-                           scriptSource: models.script.model.getValue(),
-                           cssSource: models.css.model.getValue(),
-                           htmlSource: models.html.model.getValue(),
-                         }));
+    deps.worker.postMessage({
+      viewType,
+      strictLevel,
+      scriptSource: models.script.model.getValue(),
+      cssSource: models.css.model.getValue(),
+      htmlSource: models.html.model.getValue(),
+    });
   }
 
   let viewType: ViewType = ViewType.OUTPUT;

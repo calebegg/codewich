@@ -18,5 +18,9 @@
     ],
     "inlineSourceMap": true,
     "inlineSources": true
-  }
+  },
+  "exclude": [
+    "src/url_worker/*",
+    "node_modules/*"
+  ]
 }

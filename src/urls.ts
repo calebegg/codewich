@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+
 import {deflateRaw, inflateRaw} from 'pako';
 
 import {StrictLevel, ViewType, WichData} from './model';

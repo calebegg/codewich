@@ -31,6 +31,7 @@ describe('main', () => {
     let fakeLocalStorage: JasmineSpyObj;
     let fakeGa: jasmine.Spy;
     let fakeMonaco;
+    let fakeWorker;
     const fakeGlobal: {[k: string]: any} = {};
 
     beforeEach(() => {
@@ -68,6 +69,9 @@ describe('main', () => {
       fakeLocalStorage = jasmine.createSpyObj(
           'localStorage', ['getItem', 'setItem', 'removeItem']);
       fakeGa = jasmine.createSpy('ga');
+      fakeWorker =
+          jasmine.createSpyObj('worker', ['addEventListener', 'postMessage']);
+
       run({
         localStorage: fakeLocalStorage as any,
         ga: fakeGa as any,
@@ -79,6 +83,7 @@ describe('main', () => {
             () => document.createElement('div')),
         global: fakeGlobal as any,
         monaco: fakeMonaco as any,
+        worker: fakeWorker as any,
       });
     });
 

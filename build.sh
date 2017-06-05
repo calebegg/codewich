@@ -41,19 +41,25 @@ echo "Transpiling with typecript...."
 ./node_modules/.bin/tsc
 
 echo "Combining sources with r.js...."
-./node_modules/.bin/r.js -o \
+rjs() {
+  ./node_modules/.bin/r.js -o \
     baseDir=. \
     paths.pako=node_modules/pako/dist/pako \
     paths.vs=empty: \
     paths.lodash=node_modules/lodash/lodash \
     paths.loop-protect=node_modules/loop-protect/loop-protect \
     paths.dialog-polyfill=node_modules/dialog-polyfill/dialog-polyfill \
-    name=build/out/main \
-    out=build/bundle-max.js \
+    name=$1 \
+    out=build/$2-max.js \
     optimize=none
+}
+
+rjs build/out/main bundle
+rjs build/out/urls urls_bundle
 
 echo "Uglfiying..."
 ./node_modules/.bin/uglifyjs build/bundle-max.js > build/bundle.js
+./node_modules/.bin/uglifyjs build/urls_bundle-max.js > build/urls_bundle.js
 
 echo "Deleting old $ENV builds...."
 rm -r build/$ENV || true
@@ -61,15 +67,20 @@ rm -r build/$ENV || true
 echo "Creating directory structure...."
 mkdir -p build/$ENV/$TAG/{build,node_modules/{requirejs,dialog-polyfill,monaco-editor/min/vs}}
 
-echo "Interpolating index.html with Handlebars...."
+echo "Interpolating index.html and url_worker.js with Handlebars...."
 ./node_modules/.bin/handlebars \
     --TAG=$TAG \
     --GA_ID=$ANALYTICS_ID \
     < src/index.html > build/$ENV/index.html
 
+./node_modules/.bin/handlebars \
+    --TAG=$TAG \
+    < src/url_worker.js > build/$ENV/$TAG/url_worker.js
+
 echo "Copying files to the tagged directory...."
 cp src/404.html build/$ENV/
 cp build/bundle.js build/$ENV/$TAG/build/
+cp build/urls_bundle.js build/$ENV/$TAG/build/
 cp src/*.css src/*.svg src/*.png build/$ENV/$TAG/
 cp src/opengraph.png build/$ENV/
 cp -R node_modules/monaco-editor/min/vs/ build/$ENV/$TAG/node_modules/monaco-editor/min/vs/
