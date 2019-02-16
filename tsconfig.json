@@ -1,26 +1,21 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
     "noImplicitAny": true,
     "strictNullChecks": true,
     "target": "es2015",
     "outDir": "build/out",
-    "module": "amd",
     "moduleResolution": "node",
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "lib": [
-      "dom",
-      "es5",
-      "es2015"
-    ],
+    "lib": ["dom", "es5", "es2015"],
     "inlineSourceMap": true,
-    "inlineSources": true
+    "inlineSources": true,
+    "allowSyntheticDefaultImports": true
   },
-  "exclude": [
-    "src/url_worker/*",
-    "node_modules/*"
-  ]
+  "exclude": ["src/url_worker/*", "node_modules/*"]
 }

@@ -15,20 +15,8 @@
  * limitations under the License.
  */
 
-importScripts('/{{TAG}}/node_modules/monaco-editor/min/vs/loader.js');
+import { encodeUrlData } from "./urls";
 
-require.config({
-  baseUrl: '/{{TAG}}',
-  paths: {
-    pako: 'node_modules/pako/dist/pako',
-    vs: 'node_modules/monaco-editor/min/vs',
-    lodash: 'node_modules/lodash/lodash',
-    'loop-protect': 'node_modules/loop-protect/loop-protect',
-    'build/out/urls': 'build/urls_bundle',
-  }
-});
-require(['build/out/urls'], urls => {
-  addEventListener('message', ({data}) => {
-    postMessage(urls.encodeUrlData(data));
-  });
+addEventListener("message", ({ data }) => {
+  (postMessage as any)(encodeUrlData(data));
 });

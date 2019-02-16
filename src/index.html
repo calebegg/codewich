@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--
 Copyright 2017 Google Inc.
 
@@ -15,170 +15,192 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <html lang="en-US">
-<meta charset="utf-8" />
-<title>Codewich — Live updating TypeScript/ES6/JavaScript playground</title>
+  <meta charset="utf-8" />
+  <title>Codewich — Live updating TypeScript/ES6/JavaScript playground</title>
 
-<base target="_blank" />
-<link rel="icon" type="image/png" href="/{{TAG}}/favicon.png">
+  <base target="_blank" />
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-<!-- keep < 156 characters -->
-<meta name="Description"
-      content="Create and share simple web demos using TypeScript, CSS, and HTML. Prototype new ideas quickly." />
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="CodeWich — web demo editor" />
-<meta name="twitter:description" content="Create and share simple web demos using TypeScript, CSS, and HTML. Prototype new ideas quickly." />
-<meta name="twitter:image" content="https://codewich.com/opengraph.png" />
+  <!-- keep < 156 characters -->
+  <meta
+    name="Description"
+    content="Create and share simple web demos using TypeScript, CSS, and HTML. Prototype new ideas quickly."
+  />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="CodeWich — web demo editor" />
+  <meta
+    name="twitter:description"
+    content="Create and share simple web demos using TypeScript, CSS, and HTML. Prototype new ideas quickly."
+  />
+  <meta name="twitter:image" content="./opengraph.png" />
 
-<meta property="og:title" content="CodeWich" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://codewich.com" />
-<meta property="og:image" content="https://codewich.com/opengraph.png" />
-<meta property="og:description" content="Create and share simple web demos using TypeScript, CSS, and HTML. Prototype new ideas quickly." />
+  <meta property="og:title" content="CodeWich" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://codewich.com" />
+  <meta property="og:image" content="./opengraph.png" />
+  <meta
+    property="og:description"
+    content="Create and share simple web demos using TypeScript, CSS, and HTML. Prototype new ideas quickly."
+  />
 
-{{#if GA_ID}}
   <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    (function(i, s, o, g, r, a, m) {
+      i["GoogleAnalyticsObject"] = r;
+      (i[r] =
+        i[r] ||
+        function() {
+          (i[r].q = i[r].q || []).push(arguments);
+        }),
+        (i[r].l = 1 * new Date());
+      (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m);
+    })(
+      window,
+      document,
+      "script",
+      "https://www.google-analytics.com/analytics.js",
+      "ga",
+    );
 
-  ga('create', '{{GA_ID}}', 'auto');
-  window.onerror = function (message, source, lineno, colno, error) {
-    try {
-      // Some browsers include fragment in source location for errors in
-      // index.html.
-      source = source.split('#')[0];
-      ga('send', 'exception',
-          {exDescription: message + '\n' + source + ':  ' + lineno + ',' + colno,
-          exFatal: true});
-    } catch(e) {
-      console.error(e);
-    } finally {
-      console.error(message, source, lineno, colno, error)
-    }
-  };
-  WORKER_PATH = '/{{TAG}}/url_worker.js';
+    ga("create", "{{GA_ID}}", "auto");
+    window.onerror = function(message, source, lineno, colno, error) {
+      try {
+        // Some browsers include fragment in source location for errors in
+        // index.html.
+        source = source.split("#")[0];
+        ga("send", "exception", {
+          exDescription: message + "\n" + source + ":  " + lineno + "," + colno,
+          exFatal: true,
+        });
+      } catch (e) {
+        console.error(e);
+      } finally {
+        console.error(message, source, lineno, colno, error);
+      }
+    };
   </script>
-{{/if}}
 
-<script src="/{{TAG}}/node_modules/monaco-editor/min/vs/loader.js"></script>
-<script>
-  require.config({
-    baseUrl: '/{{TAG}}',
-    paths: {
-      pako: 'node_modules/pako/dist/pako',
-      vs: 'node_modules/monaco-editor/min/vs',
-      lodash: 'node_modules/lodash/lodash',
-      'loop-protect': 'node_modules/loop-protect/loop-protect',
-      'build/out/main': 'build/bundle',
-    }
-  });
-  require(['build/out/main'], main => run());
-</script>
-<link rel="stylesheet" href="/{{TAG}}/node_modules/dialog-polyfill/dialog-polyfill.css" />
-<link rel="stylesheet" href="/{{TAG}}/style.css" />
+  <link
+    rel="stylesheet"
+    href="../node_modules/dialog-polyfill/dialog-polyfill.css"
+  />
+  <link rel="stylesheet" href="./style.css" />
 
-<body style="display: none;">
-  <dialog id="settings">
-    <h1>Settings for this 'wich</h1>
-    <section>
-      View:
-      <select id="view-type-select" onchange="onViewChange(this.value)">
-        <option value="0">Auto-run output</option>
-        <option value="1">ESNext</option>
-        <option value="2">ES5</option>
-        <option value="3">Output only</option>
-        <option value="4">Editor only</option>
-      </select>
-    </section>
-    <section>
-      Type checking:
-      <select id="strict-level-select" onchange="onStrictChange(this.value)">
-        <option value="0">Strict</option>
-        <option value="1">Loose</option>
-        <option value="2">Off (JavaScript)</option>
-      </select>
-    </section>
-    <h1>Your settings (saved in localStorage)</h1>
-    <section>
-      <button onclick="saveLocalWichSettings(true)">
-        Save current 'wich as your starter template
-      </button>
-      <button onclick="saveLocalWichSettings(false)">
-        Clear saved 'wich
-      </button>
-    </section>
-    <section>
-      Color scheme:
-      <select id="theme-select" onchange="onChangeColorScheme(this.value)">
-        <option value="vs">Light</option>
-        <option value="vs-dark">Dark</option>
-        <option value="hc-black">Dark (high contrast)</option>
-      </select>
-    </section>
-    <button onclick="this.parentElement.close()">done</button>
-  </dialog>
-  <dialog id="share">
-    <h1>Share this 'wich</h1>
-    <button onclick="window.open('https://facebook.com/sharer/sharer.php?u='
-                                     + encodeURIComponent(window.location))">
-      Facebook
-    </button><br />
-    <button onclick="window.open('https://twitter.com/home?status='
-                                     + encodeURIComponent(window.location))">
-      Twitter
-    </button><br />
-    <button onclick="window.open('https://plus.google.com/share?url='
-                                     + encodeURIComponent(window.location))">
-      Google+
-    </button><br />
-    <input style="position:absolute;left:-10000px" />
-    <button onclick="e=this.previousElementSibling;e.value=window.location;e.select();document.execCommand('copy')">
-      Copy to clipboard
-    </button><br />
-    <button onclick="this.parentElement.close()">done</button>
-  </dialog>
-  <div id="row">
-    <div id="editor">
-      <ul id="tabbar">
-        <li id="ts-tab" onclick="switchTab('script', this)">ts</li>
-        <li id="css-tab" onclick="switchTab('css', this)">css</li>
-        <li id="html-tab" onclick="switchTab('html', this)">html</li>
-      </ul>
-      <div id="monaco-container"></div>
-    </div>
-    <div id="output">
-      <div id="crash-message" style="display:none">
-        Looks like the last 'wich might have crashed or frozen, so we disabled
-        auto-run. Take a moment to edit the script to fix the issue, then:<br>
-        <button onclick="turnOnAutoRun()">Turn on auto-run</button>
+  <body style="display: none;">
+    <dialog id="settings">
+      <h1>Settings for this 'wich</h1>
+      <section>
+        View:
+        <select id="view-type-select" onchange="onViewChange(this.value)">
+          <option value="0">Auto-run output</option>
+          <option value="1">ESNext</option>
+          <option value="2">ES5</option>
+          <option value="3">Output only</option>
+          <option value="4">Editor only</option>
+        </select>
+      </section>
+      <section>
+        Type checking:
+        <select id="strict-level-select" onchange="onStrictChange(this.value)">
+          <option value="0">Strict</option>
+          <option value="1">Loose</option>
+          <option value="2">Off (JavaScript)</option>
+        </select>
+      </section>
+      <h1>Your settings (saved in localStorage)</h1>
+      <section>
+        <button onclick="saveLocalWichSettings(true)">
+          Save current 'wich as your starter template
+        </button>
+        <button onclick="saveLocalWichSettings(false)">
+          Clear saved 'wich
+        </button>
+      </section>
+      <section>
+        Color scheme:
+        <select id="theme-select" onchange="onChangeColorScheme(this.value)">
+          <option value="vs">Light</option>
+          <option value="vs-dark">Dark</option>
+          <option value="hc-black">Dark (high contrast)</option>
+        </select>
+      </section>
+      <button onclick="this.parentElement.close()">done</button>
+    </dialog>
+    <dialog id="share">
+      <h1>Share this 'wich</h1>
+      <button
+        onclick="window.open('https://facebook.com/sharer/sharer.php?u='
+                                     + encodeURIComponent(window.location))"
+      >
+        Facebook</button
+      ><br />
+      <button
+        onclick="window.open('https://twitter.com/home?status='
+                                     + encodeURIComponent(window.location))"
+      >
+        Twitter</button
+      ><br />
+      <button
+        onclick="window.open('https://plus.google.com/share?url='
+                                     + encodeURIComponent(window.location))"
+      >
+        Google+</button
+      ><br />
+      <input style="position:absolute;left:-10000px" />
+      <button
+        onclick="e=this.previousElementSibling;e.value=window.location;e.select();document.execCommand('copy')"
+      >
+        Copy to clipboard</button
+      ><br />
+      <button onclick="this.parentElement.close()">done</button>
+    </dialog>
+    <div id="row">
+      <div id="editor">
+        <ul id="tabbar">
+          <li id="ts-tab" onclick="switchTab('script', this)">ts</li>
+          <li id="css-tab" onclick="switchTab('css', this)">css</li>
+          <li id="html-tab" onclick="switchTab('html', this)">html</li>
+        </ul>
+        <div id="monaco-container"></div>
       </div>
-      <pre></pre>
-      <iframe id="output-iframe"></iframe>
+      <div id="output">
+        <div id="crash-message" style="display:none">
+          Looks like the last 'wich might have crashed or frozen, so we disabled
+          auto-run. Take a moment to edit the script to fix the issue, then:<br />
+          <button onclick="turnOnAutoRun()">Turn on auto-run</button>
+        </div>
+        <pre></pre>
+        <iframe id="output-iframe"></iframe>
+      </div>
+      <nav>
+        <a href="https://github.com/calebegg/codewich">
+          <img src="./icon.svg" alt="CodeWich" width="48" />
+          <div class="tooltip" style="top:18px;right:100%;">View on Github</div>
+        </a>
+        <button onclick="showSettings()">
+          <i class="material-icons">settings</i>
+          <div class="tooltip">Settings</div>
+        </button>
+        <button onclick="newWich()">
+          <i class="material-icons">add_circle</i>
+          <div class="tooltip">New 'wich</div>
+        </button>
+        <button onclick="share()">
+          <i class="material-icons">share</i>
+          <div class="tooltip">Share</div>
+        </button>
+      </nav>
     </div>
-    <nav>
-      <a href="https://github.com/calebegg/codewich">
-        <img src="/{{TAG}}/icon.svg" alt="CodeWich" width="48">
-        <div class="tooltip" style="top:18px;right:100%;">View on Github</div>
-      </a>
-      <button onclick="showSettings()">
-        <i class="material-icons">settings</i>
-        <div class="tooltip">Settings</div>
-      </button>
-      <button onclick="newWich()">
-        <i class="material-icons">add_circle</i>
-        <div class="tooltip">New 'wich</div>
-      </button>
-      <button onclick="share()">
-        <i class="material-icons">share</i>
-        <div class="tooltip">Share</div>
-      </button>
-    </nav>
-  </div>
-  <div id="save-overlay" style="display: none">
-    <div>
-      Changes you make are automatically saved in the URL. &uarr;
+    <div id="save-overlay" style="display: none">
+      <div>
+        Changes you make are automatically saved in the URL. &uarr;
+      </div>
     </div>
-  </div>
-</body>
+    <script src="./main.ts"></script>
+    <script>
+      run();
+    </script>
+  </body>
 </html>

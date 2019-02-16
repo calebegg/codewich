@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright 2017 Google Inc.
 #
@@ -47,7 +47,6 @@ rjs() {
     paths.pako=node_modules/pako/dist/pako \
     paths.vs=empty: \
     paths.lodash=node_modules/lodash/lodash \
-    paths.loop-protect=node_modules/loop-protect/loop-protect \
     paths.dialog-polyfill=node_modules/dialog-polyfill/dialog-polyfill \
     name=$1 \
     out=build/$2-max.js \
@@ -83,7 +82,7 @@ cp build/bundle.js build/$ENV/$TAG/build/
 cp build/urls_bundle.js build/$ENV/$TAG/build/
 cp src/*.css src/*.svg src/*.png build/$ENV/$TAG/
 cp src/opengraph.png build/$ENV/
-cp -R node_modules/monaco-editor/min/vs/ build/$ENV/$TAG/node_modules/monaco-editor/min/vs/
+cp -R node_modules/monaco-editor/min/vs build/$ENV/$TAG/node_modules/monaco-editor/min
 cp node_modules/dialog-polyfill/dialog-polyfill.css build/$ENV/$TAG/node_modules/dialog-polyfill/
 
 echo "Done in $SECONDS seconds"
