@@ -64,18 +64,13 @@ This is not an official Google product.
 
 ### Running locally
 
-    ./build.sh dev
-    ./node_modules/.bin/live-server build/dev
-
-### Testing
-
-    tsc --watch &
-    ./test.sh
+    npx parcel serve src/index.html
 
 ### Deploying
 
-    ./build.sh prod
-    ./node_modules/.bin/firebase deploy
+    npx parcel build src/index.html
+    npx firebase deploy -P qa
+    npx firebase deploy -P prod
 
 
 [Bouncing balls]: https://codewich.com/#v1,,,bVJtT4MwEPbzfsWJmrV7QdhLMmXsg4uJSzQx6g9YRzsgMkhYNyHb_rtXygTUBsrd8dxzT.8aCQkeuEB44u02IpamL.RjJJT5kC84aXss3rNtmwLbwtPHy_O88EsIbUFtqdx5EkuRSdIe8Da9dFqtCCtkWMHqQa4_vHR56Qc7gcad09oKucDsdM8iQii4MzgU_OEaSAFCFC1jannmOoyid5lHisBI_RUjY7sH59ccUcP5hX4TniRYFJ.xpTdaYbQUqwooqS9MBmbKYp5sUFUHRpYFXUysUPk_qMEfFP.PzLagD.MaSHH1Rzpw.jl.BjMYjS04HlHSFGmppuvzzPkB5RpUb5Gmw70D5qQuuOviv4a2jtuAYCu63cptziAVcpfGdZHNWSyDbcTI9UFlqIadejCxbnpo4WbTpVPmrIQfxq_YEkLPIZZ6JMO7okZTjKno2OtCtbQEZYX68uCNo_DCM22npklRY30b53yxShChu7Ni3qefJruY38PVcDhE0MVUX3YIuWto04CvkMvANfCeGBCI0A.kdmbTWw2ZfQM
