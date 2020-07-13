@@ -36,7 +36,7 @@ const DEFAULT_COMPILER_OPTIONS: monaco.languages.typescript.CompilerOptions = Ob
     // ng2
     experimentalDecorators: true,
     emitDecoratorMetadata: true,
-    target: monaco.languages.typescript.ScriptTarget.ES2017,
+    target: monaco.languages.typescript.ScriptTarget.ESNext ,
   },
 );
 
@@ -56,7 +56,7 @@ const STRICT_COMPILER_OPTIONS: monaco.languages.typescript.CompilerOptions = Obj
 
 type WindowExports = Readonly<Window> & { [key: string]: {} };
 
-const global = window as WindowExports;
+const global = window as unknown as WindowExports;
 
 Babel.registerPlugin(
   "loopProtection",
@@ -312,7 +312,7 @@ export function run(
     update();
   }
 
-  const loopProtectModel = deps.monaco.editor.createModel(
+  deps.monaco.editor.createModel(
     "",
     "typescript",
     deps.monaco.Uri.file("main.ts"),

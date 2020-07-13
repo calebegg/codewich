@@ -1,3 +1,20 @@
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import "monaco-editor/esm/vs/editor/browser/controller/coreCommands.js";
 import "monaco-editor/esm/vs/editor/browser/widget/codeEditorWidget.js";
 import "monaco-editor/esm/vs/editor/browser/widget/diffEditorWidget.js";
@@ -25,7 +42,7 @@ import "monaco-editor/esm/vs/editor/contrib/links/links.js";
 import "monaco-editor/esm/vs/editor/contrib/multicursor/multicursor.js";
 import "monaco-editor/esm/vs/editor/contrib/parameterHints/parameterHints.js";
 // import "monaco-editor/esm/vs/editor/contrib/quickFix/quickFixCommands.js";
-import "monaco-editor/esm/vs/editor/contrib/referenceSearch/referenceSearch.js";
+// import "monaco-editor/esm/vs/editor/contrib/referenceSearch/referenceSearch.js";
 import "monaco-editor/esm/vs/editor/contrib/rename/rename.js";
 import "monaco-editor/esm/vs/editor/contrib/smartSelect/smartSelect.js";
 import "monaco-editor/esm/vs/editor/contrib/snippet/snippetController2.js";
@@ -49,7 +66,7 @@ import "monaco-editor/esm/vs/basic-languages/html/html.contribution.js";
 import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution";
 
 (self as any).MonacoEnvironment = {
-  getWorker: function(_: unknown, label: string) {
+  getWorker(_: unknown, label: string) {
     if (label === "json") {
       return new Worker(
         "../node_modules/monaco-editor/esm/vs/language/json/json.worker.js",
@@ -71,9 +88,9 @@ import "monaco-editor/esm/vs/basic-languages/typescript/typescript.contribution"
       );
     }
     return new Worker(
-      "../node_modules/monaco-editor/esm/vs/editor/xeditor.worker.js",
+      "../node_modules/monaco-editor/esm/vs/editor/editor.worker.js",
     );
-  },
+  }
 };
 
 export { monaco };

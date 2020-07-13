@@ -11,20 +11,21 @@
     "dialog-polyfill": "^0.4.10",
     "lodash": "^4.17.11",
     "loop-protect": "^2.1.6",
-    "monaco-editor": "^0.15.6",
+    "monaco-editor": "^0.20.0",
     "pako": "^1.0.8",
     "parcel": "^1.11.0",
-    "requirejs": "^2.3.6"
+    "requirejs": "^2.3.6",
+    "typescript": "^3.9.6"
   },
   "devDependencies": {
     "@types/jasmine": "^3.3.9",
-    "concurrently": "^4.1.0",
+    "concurrently": "^5.2.0",
     "firebase-tools": "^6.3.1",
     "github": "^14.0.0",
     "handlebars-cmd": "^0.1.4",
     "jasmine": "^3.3.1",
     "jasmine-core": "^3.3.0",
-    "karma": "^4.0.0",
+    "karma": "^5.1.0",
     "karma-chrome-launcher": "^2.1.1",
     "karma-es6-shim": "^1.0.0",
     "karma-jasmine": "^2.0.1",
@@ -33,11 +34,10 @@
     "live-server": "^1.2.1",
     "semver": "^5.6.0",
     "tslint": "^5.12.1",
-    "typescript": "^3.3.3",
     "uglify-js-harmony": "^2.7.7"
   },
   "scripts": {
-    "test": "concurrently 'npm run karma-phantom' 'npm run tslint' 'npm run tsc-check'",
+    "test": "concurrently 'npm run tslint' 'npm run tsc-check'",
     "karma-phantom": "tsc --target es5 ; karma start --single-run --browsers PhantomJS",
     "tslint": "tslint --config tslint.json src/**/*.ts",
     "tsc-check": "tsc --noEmit"
