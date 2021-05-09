@@ -9,7 +9,7 @@
     "@types/pako": "^1.0.0",
     "babel-standalone": "^6.26.0",
     "dialog-polyfill": "^0.4.10",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "loop-protect": "^2.1.6",
     "monaco-editor": "^0.20.0",
     "pako": "^1.0.8",
