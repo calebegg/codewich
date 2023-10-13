@@ -13,39 +13,37 @@ This is not an official Google product.
 
 ## Features
 
- *  Native support for TypeScript, including error highlighting and
-    autocompletion.
- *  Your code is automatically run as you type.
- *  Code snippets you write are automatically saved in a compressed form in the
-    URL. This has a few benefits:
-     *  Your code never leaves your machine unless you decide to share your URL.
-        Since the snippet is stored in the URL fragment (the part after the
-        `#`), the CodeWich web server doesn't even log your code snippets.
-     *  You don't have to rely on CodeWich's availability. You can [download
-        your own copy] and run it locally, or host it somewhere you control, and
-        you'll always be able to decode your CodeWich URLs to get the original
-        code.
+- Native support for TypeScript, including error highlighting and
+  autocompletion.
+- Your code is automatically run as you type.
+- Code snippets you write are automatically saved in a compressed form in the
+  URL. This has a few benefits:
+  - Your code never leaves your machine unless you decide to share your URL.
+    Since the snippet is stored in the URL fragment (the part after the
+    `#`), the CodeWich web server doesn't even log your code snippets.
+  - You don't have to rely on CodeWich's availability. You can [download
+    your own copy] and run it locally, or host it somewhere you control, and
+    you'll always be able to decode your CodeWich URLs to get the original
+    code.
 
 [download your own copy]: https://github.com/calebegg/codewich/releases/latest
 
 ## Demos
 
- *  [Flocking] (canvas)
- *  [Card flip] (CSS)
- *  [99 bottles of beer] (text)
- *  [Bouncing balls] (canvas)
- *  [Draw tiling patterns] (canvas)
- *  [Spirograph] (canvas)
- *  [Zigzag border] (CSS)
+- [Flocking] (canvas)
+- [Card flip] (CSS)
+- [99 bottles of beer] (text)
+- [Bouncing balls] (canvas)
+- [Draw tiling patterns] (canvas)
+- [Spirograph] (canvas)
+- [Zigzag border] (CSS)
 
 ## CodeWich uses
 
- *  [Pako] for compression
- *  [Monaco Editor] for the editor (as well as error highlighting,
-    autocompletion, and TypeScript transpilation).
- *  [Loop Protect] from [JSBin] to prevent accidental infinite for/while loops
-    from breaking your tab.
- *  [Firebase] for static hosting
+- [Pako] for compression
+- [Loop Protect] from [JSBin] to prevent accidental infinite for/while loops
+  from breaking your tab.
+- [Firebase] for static hosting
 
 [Pako]: https://github.com/nodeca/pako
 [Loop Protect]: https://github.com/jsbin/loop-protect
@@ -54,23 +52,23 @@ This is not an official Google product.
 
 ## Development
 
-### Setup
-
- *  [Install yarn]
- *  `yarn install`
-
- [Install yarn]: https://yarnpkg.com/lang/en/docs/install/
+```bash
+$ npm install
+```
 
 ### Running locally
 
-    npx parcel serve src/index.html
+```bash
+$ npx parcel serve src/index.html
+```
 
 ### Deploying
 
-    npx parcel build src/index.html
-    npx firebase deploy -P qa
-    npx firebase deploy -P prod
-
+```bash
+$ npx parcel build src/index.html
+$ npx firebase deploy -P qa
+$ npx firebase deploy -P prod
+```
 
 [Bouncing balls]: https://codewich.com/#v1,,,bVJtT4MwEPbzfsWJmrV7QdhLMmXsg4uJSzQx6g9YRzsgMkhYNyHb_rtXygTUBsrd8dxzT.8aCQkeuEB44u02IpamL.RjJJT5kC84aXss3rNtmwLbwtPHy_O88EsIbUFtqdx5EkuRSdIe8Da9dFqtCCtkWMHqQa4_vHR56Qc7gcad09oKucDsdM8iQii4MzgU_OEaSAFCFC1jannmOoyid5lHisBI_RUjY7sH59ccUcP5hX4TniRYFJ.xpTdaYbQUqwooqS9MBmbKYp5sUFUHRpYFXUysUPk_qMEfFP.PzLagD.MaSHH1Rzpw.jl.BjMYjS04HlHSFGmppuvzzPkB5RpUb5Gmw70D5qQuuOviv4a2jtuAYCu63cptziAVcpfGdZHNWSyDbcTI9UFlqIadejCxbnpo4WbTpVPmrIQfxq_YEkLPIZZ6JMO7okZTjKno2OtCtbQEZYX68uCNo_DCM22npklRY30b53yxShChu7Ni3qefJruY38PVcDhE0MVUX3YIuWto04CvkMvANfCeGBCI0A.kdmbTWw2ZfQM
 [Draw tiling patterns]: https://codewich.com/#v1,,,jZJRT4MwEMd95lOcS0zBTawkexljPhgfTDRZ3Is.snIbjYVG1m0uC9_dK2XITEy8kHJcf727_xWFBkRa7tINJJBpsS2wNOHnFqvDAhUKoyufOYAFl7GnLE.oC4VrNA.6NPhlfBZlDeGtdAW.5Sq9J5LHjTOFceMMhwEcPSDrOKGV46zTcOT8cNbkCnyb5QoiSJIGJLdPWBPhSir1Sl038DXccT5q4NY9LUHcnas9t9ae12pKs.xxR1N4lhuDJZL.Qm83WOgdshEgJDMq.0vkTfRPlRb8W6YTsDAHRWWc4qGV2cr27ckucA9sqVLxwWACbJ9LgyzuZVriWpbz1OR.0A.nlfAxFEqSwjebh3NK2RvXafO92zwb4AjoeaG04fyJotFZctv9qRyN1L68Oogvljo7wBGKtKKeJvaq64tp.9vtZWbyZDDmfAA5ynVu3MdseuuI2Tc
