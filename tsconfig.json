@@ -1,22 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": { "*": ["types/*"] },
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "target": "es2015",
-    "outDir": "build/out",
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "lib": ["dom", "es5", "ESNext"],
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "allowSyntheticDefaultImports": true
+    "strict": true,
+    "jsx": "react-jsx",
   },
-  "exclude": ["src/url_worker/*", "node_modules/*"]
 }

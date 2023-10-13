@@ -48,7 +48,6 @@ This is not an official Google product.
  *  [Firebase] for static hosting
 
 [Pako]: https://github.com/nodeca/pako
-[Monaco Editor]: https://github.com/Microsoft/monaco-editor
 [Loop Protect]: https://github.com/jsbin/loop-protect
 [JSBin]: https://jsbin.com/
 [Firebase]: https://firebase.google.com/docs/hosting/

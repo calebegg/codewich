@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2017 Google Inc.
+ * Copyright 2023 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-import { encodeUrlData } from "./urls";
+import { createRoot } from "react-dom/client";
+import { Main } from "./Main";
 
-addEventListener("message", ({ data }) => {
-  (postMessage as any)(encodeUrlData(data));
-});
+createRoot(document.querySelector("main")!).render(<Main />);
