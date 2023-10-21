@@ -15,7 +15,7 @@ This is not an official Google product.
 
 - Native support for TypeScript, including error highlighting and
   autocompletion.
-- Your code is automatically run as you type.
+- Your code automatically runs as you type.
 - Code snippets you write are automatically saved in a compressed form in the
   URL. This has a few benefits:
   - Your code never leaves your machine unless you decide to share your URL.
