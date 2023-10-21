@@ -1,6 +1,9 @@
 {
   "projects": {
     "prod": "codewich-9c316",
-    "qa": "codewich-qa"
-  }
+    "qa": "codewich-qa",
+    "default": "codewich-qa"
+  },
+  "targets": {},
+  "etags": {}
 }

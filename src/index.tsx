@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import { createRoot } from "react-dom/client";
-import { Main } from "./Main";
+import {createRoot} from 'react-dom/client';
+import {Main} from './Main';
 
-createRoot(document.querySelector("main")!).render(<Main />);
+createRoot(document.querySelector('main')!).render(<Main />);
